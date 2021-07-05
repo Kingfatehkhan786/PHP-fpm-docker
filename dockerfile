@@ -50,8 +50,8 @@ RUN yes | apt install php7.4-fpm \
                 php7.4-ldap \
                 php7.4-curl \
                 php7.4-gd  
-
-
+                
+RUN apt install net-tools
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN echo "date.timezone=$ITDEVGROUP_TIME_ZONE" > /etc/php/7.4/cli/conf.d/timezone.ini
 RUN  mkdir -p /var/www/html
