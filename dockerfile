@@ -56,8 +56,11 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN echo "date.timezone=$ITDEVGROUP_TIME_ZONE" > /etc/php/7.4/cli/conf.d/timezone.ini
 RUN  mkdir -p /var/www/html
 COPY ./Server_conf/site.conf/php-fpm.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY ./Server_conf/site.conf/php.ini /etc/php/7.4/fpm/php.ini
 RUN  cat /etc/php/7.4/fpm/pool.d/www.conf 
-RUN  service php7.4-fpm restart
+
+RUN php-fpm7.4 -tt \ 
+    &&   service php7.4-fpm restart
 EXPOSE 9001
 USER root
 ENTRYPOINT  ["/usr/bin/supervisord"]
